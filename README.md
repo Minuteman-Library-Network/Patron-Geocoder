@@ -11,7 +11,7 @@ Geoid and a last updated date are placed in a Census varfield (index tag k in ou
 |d last updated date
 
 Data from this field is then used for created choropleth maps that can utilize both demographic data from the census bureau and annoynmized statistical data from our patron records.
-Examples can be seen within the patron maps repo.
+Examples can be seen within the Patron Maps repo (https://github.com/Minuteman-Library-Network/Patron-Maps).
 
 api_info.ini
 
