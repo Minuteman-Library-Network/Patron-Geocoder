@@ -3,7 +3,7 @@
 This script will gather 10,000 patron records at a time via a SQL query and pass the addresses of those records through
 the US Census Bureau's geocoding service so that geoid values may in turn be added/updated in each patron record where an address match is found
 
-Geoid and a last updated date are placed in a Census varfield (index tag k in our system) using the following structure
+Geoid and a last updated date are placed in a Census varfield (varfield tag k in our system) using the following structure
 |s state id
 |c county id
 |t tract id
