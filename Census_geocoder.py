@@ -85,8 +85,8 @@ def runquery():
 
 def geocode(csvFile):
     start_time = datetime.now()
-    #currently set to use data from the 2019 ACS survey, must be updated to current vintage once 2020 census data is made available
-    cg = censusgeocode.CensusGeocode(benchmark='Public_AR_Current',vintage='ACS2019_Current')
+    #Be sure to adjust vintage as new data is made available to stay current
+    cg = censusgeocode.CensusGeocode(benchmark='Public_AR_Current',vintage='Census2020_Current')
     
     print("sending batch file to process")
     result = cg.addressbatch(csvFile)
