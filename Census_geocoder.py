@@ -42,7 +42,7 @@ def get_token():
     token = json_response["access_token"]
     return token
 
-def mod_patron(patronid,state,county,tract,block,token):
+def mod_patron(patronid,state,county,tract,block,token,s):
 #function will use the patron api to update the k tagged varfield (census in Minuteman) of the given patron record
 #with the current geoid of that patron's address that was returned by the census geocoder
 	
@@ -51,7 +51,7 @@ def mod_patron(patronid,state,county,tract,block,token):
     url = config['api']['base_url'] + "/patrons/" + patronid
     header = {"Authorization": "Bearer " + token, "Content-Type": "application/json;charset=UTF-8"}
     payload = {"varFields": [{"fieldTag": "k", "content": "|s" + state + "|c" + county + "|t" + tract + "|b" + block + "|d" + format(date.today())}]}
-    request = requests.put(url, data=json.dumps(payload), headers = header)
+    request = s.put(url, data=json.dumps(payload), headers = header)
    
 def runquery():
 
@@ -110,6 +110,7 @@ def main():
         reader = csv.DictReader(csvFile2)
         expiration_time = datetime.now() + timedelta(seconds=3600)
         token = get_token()
+        s = requests.Session()
         for row in reader:
             patronid = row['id']
             state = row['statefp']
@@ -120,12 +121,12 @@ def main():
             print(patronid)
             #checks if API token has expired and gets a new one if necessary
             if datetime.now() < expiration_time:
-                mod_patron(patronid,state,county,tract,block,token)
+                mod_patron(patronid,state,county,tract,block,token,s)
             else:
                 print("refreshing token")
                 expiration_time = datetime.now() + timedelta(seconds=3600)
                 token = get_token()
-                mod_patron(patronid,state,county,tract,block,token)
+                mod_patron(patronid,state,county,tract,block,token,s)
 
     print("---time to complete %s seconds ---" % (datetime.now() - start_time))    
     
